@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Importar Imóveis via CSV</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Importar</button>
+                            <a href="{% url 'property_list' %}" class="btn btn-secondary">Voltar</a>
+                        </div>
+                    </form>
+
+                    <div class="mt-4">
+                        <h4>Instruções:</h4>
+                        <p>O arquivo CSV deve conter as seguintes colunas:</p>
+                        <ul>
+                            <li><strong>nome</strong>: Nome do imóvel</li>
+                            <li><strong>numero_inscricao</strong>: Número de inscrição</li>
+                            <li><strong>numero_hidrometro</strong>: Número do hidrômetro</li>
+                        </ul>
+                        <p>Exemplo de formato do CSV:</p>
+                        <pre>nome,numero_inscricao,numero_hidrometro
+Bloco A,A789,123456
+Bloco B,B123,789012,
+Bloco C,C456,345678,901234</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

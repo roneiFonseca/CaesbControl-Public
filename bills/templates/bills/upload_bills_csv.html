@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Importar Contas de Água</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary">Importar</button>
+                    </form>
+
+                    <div class="mt-4">
+                        <h4>Formato Esperado do CSV:</h4>
+                        <p>O arquivo CSV deve conter as seguintes colunas:</p>
+                        <ul>
+                            <li><strong>Ano</strong> - Ano da conta (ex: 2024)</li>
+                            <li><strong>Mês</strong> - Mês da conta (1-12)</li>
+                            <li><strong>LOCAL</strong> - Nome do local/imóvel</li>
+                            <li><strong>INSCRIÇÃO</strong> - Número de inscrição do imóvel</li>
+                            <li><strong>HIDROMETRO</strong> - Número do hidrômetro (deve corresponder ao cadastrado no imóvel)</li>
+                            <li><strong>LEITURA ANTERIOR</strong> - Leitura anterior do hidrômetro</li>
+                            <li><strong>LEITURA ATUAL</strong> - Leitura atual do hidrômetro</li>
+                            <li><strong>m3</strong> - Consumo em metros cúbicos</li>
+                            <li><strong>R$</strong> - Valor da conta</li>
+                        </ul>
+
+                        <div class="alert alert-info">
+                            <strong>Importante:</strong> O número do hidrômetro deve corresponder exatamente ao número cadastrado para o imóvel.
+                            Se houver divergência, a importação da conta será rejeitada.
+                        </div>
+
+                        <h5>Exemplo:</h5>
+                        <pre class="bg-light p-2">
+Ano,Mês,LOCAL,INSCRIÇÃO,HIDROMETRO,LEITURA ANTERIOR,LEITURA ATUAL,m3,R$
+2024,1,Bloco A,123456,H123456,100,150,50,"R$ 250,00"
+2024,1,Bloco B,789012,H789012,200,280,80,"R$ 400,00"</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

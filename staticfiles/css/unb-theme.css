@@ -1,0 +1,198 @@
+/* Tema UnB */
+:root {
+    --unb-1: #023E73;
+    --unb-2: #024873;
+    --unb-3: #038C33;
+    --unb-4: #8ABF92;
+    --unb-5: #F2F2F2;
+}
+
+/* Estilos Globais */
+body {
+    background-color: var(--unb-5);
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--unb-1) !important;
+}
+
+.navbar-brand, .nav-link {
+    color: var(--unb-5) !important;
+}
+
+.nav-link:hover {
+    color: var(--unb-4) !important;
+}
+
+/* Cards */
+.card {
+    border-color: var(--unb-2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background-color: var(--unb-1) !important;
+    color: var(--unb-5);
+}
+
+/* Botões */
+.btn-primary {
+    background-color: var(--unb-3) !important;
+    border-color: var(--unb-3) !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--unb-4) !important;
+    border-color: var(--unb-4) !important;
+    color: var(--unb-1) !important;
+}
+
+.btn-secondary {
+    background-color: var(--unb-2) !important;
+    border-color: var(--unb-2) !important;
+}
+
+.btn-secondary:hover {
+    background-color: var(--unb-1) !important;
+    border-color: var(--unb-1) !important;
+}
+
+/* Alertas */
+.alert-success {
+    background-color: var(--unb-4) !important;
+    border-color: var(--unb-3) !important;
+    color: var(--unb-1) !important;
+}
+
+.alert-danger {
+    background-color: #ffebee !important;
+    border-color: var(--unb-1) !important;
+    color: var(--unb-1) !important;
+}
+
+/* Tabelas */
+.table th {
+    background-color: var(--unb-2) !important;
+    color: var(--unb-5) !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--unb-4) !important;
+    opacity: 0.8;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: var(--unb-3) !important;
+    box-shadow: 0 0 0 0.2rem rgba(3, 140, 51, 0.25) !important;
+}
+
+.form-label {
+    color: var(--unb-1);
+    font-weight: 500;
+}
+
+/* Paginação */
+.page-link {
+    color: var(--unb-1) !important;
+}
+
+.page-item.active .page-link {
+    background-color: var(--unb-1) !important;
+    border-color: var(--unb-1) !important;
+    color: var(--unb-5) !important;
+}
+
+/* Badges */
+.badge-warning {
+    background-color: var(--unb-4) !important;
+    color: var(--unb-1) !important;
+}
+
+.badge-danger {
+    background-color: var(--unb-1) !important;
+    color: var(--unb-5) !important;
+}
+
+/* Links */
+a {
+    color: var(--unb-1);
+}
+
+a:hover {
+    color: var(--unb-3);
+    text-decoration: none;
+}
+
+/* Listas */
+.list-group-item {
+    border-color: var(--unb-2);
+}
+
+.list-group-item.active {
+    background-color: var(--unb-1) !important;
+    border-color: var(--unb-1) !important;
+}
+
+/* Modais */
+.modal-header {
+    background-color: var(--unb-1) !important;
+    color: var(--unb-5) !important;
+}
+
+.modal-footer {
+    background-color: var(--unb-5) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--unb-5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--unb-2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--unb-1);
+}
+
+/* Utilitários */
+.text-primary {
+    color: var(--unb-1) !important;
+}
+
+.text-success {
+    color: var(--unb-3) !important;
+}
+
+.bg-primary {
+    background-color: var(--unb-1) !important;
+}
+
+.bg-success {
+    background-color: var(--unb-3) !important;
+}
+
+.border-primary {
+    border-color: var(--unb-1) !important;
+}
+
+/* Animações */
+.btn, .nav-link, a {
+    transition: all 0.3s ease;
+}
+
+/* Correções específicas */
+.bg-warning.bg-opacity-10 {
+    background-color: var(--unb-4) !important;
+    opacity: 0.1;
+}

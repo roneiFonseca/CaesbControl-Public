@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.env/
+
+# Django
+*.log
+db.sqlite3
+/media/
+/static/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# Migrations (opcional, só inclua se quiser ignorar migrações geradas)
+*/migrations/*
+!*/migrations/__init__.py
+
+# Docker
+*.pid
+
+# Secrets
+*.env
+config/settings/local.py

@@ -1,0 +1,28 @@
+[project]
+name = "caesbcontrol"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django-crispy-forms==2.1",
+    "django==5.0.1",
+    "djangorestframework==3.14.0",
+    "crispy-bootstrap5==2023.10",
+    "pillow==10.1.0",
+    "python-dateutil==2.8.2",
+    "django-filter==23.5",
+    "django-widget-tweaks==1.5.0",
+    "plotly==5.18.0",
+    "pandas==2.1.4",
+    "python-magic==0.4.27",
+    "scikit-learn>=1.6.1",
+    "matplotlib>=3.10.0",
+    "openai==0.28",
+    "python-dotenv>=1.0.1",
+    "seaborn>=0.13.2",
+    "drf-yasg>=1.21.8",
+    "djangorestframework-simplejwt>=5.4.0",
+    "django-cors-headers>=4.7.0",
+    "pre-commit>=4.1.0",
+]

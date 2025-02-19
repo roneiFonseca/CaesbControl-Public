@@ -1,0 +1,20 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.8.2
+  hooks:
+    - id: ruff
+      language: python
+      args: [ --fix ]
+    - id: ruff-format
+      language: python
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+    - id: detect-private-key
+      name: Detect if private key is added to the repository
+    - id: trailing-whitespace
+      name: Remove trailing whitespace at end of line
+    - id: check-docstring-first
+      name: Checks for a common error of placing code before the docstring
+    - id: end-of-file-fixer
+      name: Makes sure files end in a newline and only a newline

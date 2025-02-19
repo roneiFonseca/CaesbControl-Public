@@ -1,0 +1,421 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Dashboard - CAESB Control{% endblock %}
+
+{% block extra_css %}
+<style>
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilos específicos do dashboard */
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin-bottom: 2rem;
+}
+
+.anomaly-score {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.consumption-value {
+    font-size: 1.2rem;
+}
+
+.filter-section {
+    background-color: var(--unb-5);
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.stats-card {
+    border-radius: 0.25rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.stats-icon {
+    font-size: 2rem;
+    margin: 0 auto;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #007bff;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-header bg-primary bg-opacity-10">
+        <h5 class="mb-0"><i class="fas fa-filter"></i> Filtros</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-6">
+                {{ filter_form.property_search|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ filter_form.property|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ filter_form.year|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ filter_form.month|as_crispy_field }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-filter"></i> Filtrar
+                </button>
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Limpar Filtros
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100 stats-card">
+            <div class="card-body text-center">
+                <div class="stats-icon mb-2">
+                    <i class="fas fa-tint fa-2x text-primary"></i>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">Consumo Total</h6>
+                <h3 class="card-title mb-0">{{ total_consumption|floatformat:2 }} m³</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100 stats-card">
+            <div class="card-body text-center">
+                <div class="stats-icon mb-2">
+                    <i class="fas fa-chart-line fa-2x text-success"></i>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">Consumo Médio</h6>
+                <h3 class="card-title mb-0">{{ avg_consumption|floatformat:2 }} m³</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100 stats-card">
+            <div class="card-body text-center">
+                <div class="stats-icon mb-2">
+                    <i class="fas fa-dollar-sign fa-2x text-warning"></i>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">Valor Total</h6>
+                <h3 class="card-title mb-0">R$ {{ total_amount|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100 stats-card">
+            <div class="card-body text-center">
+                <div class="stats-icon mb-2">
+                    <i class="fas fa-calculator fa-2x text-info"></i>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">Valor Médio</h6>
+                <h3 class="card-title mb-0">R$ {{ avg_amount|floatformat:2 }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card h-100 stats-card">
+            <div class="card-body text-center">
+                <div class="stats-icon mb-2">
+                    <i class="fas fa-building fa-2x text-secondary"></i>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">Total de Imóveis</h6>
+                <h3 class="card-title mb-0">{{ properties.count }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row">
+    {% if consumption_chart %}
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                {{ consumption_chart|safe }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if cost_chart %}
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                {{ cost_chart|safe }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Top Consumers Chart -->
+<div class="row">
+    {% if top_consumers_chart %}
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                {{ top_consumers_chart|safe }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Detecção de Anomalias -->
+{% if isolation_forest_chart or regression_anomalies_chart %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-warning bg-opacity-10">
+                <h5 class="mb-0">
+                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                    Detecção de Anomalias
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% if isolation_forest_chart %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Anomalias por Isolation Forest</h6>
+                            </div>
+                            <div class="card-body">
+                                {{ isolation_forest_chart|safe }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if regression_anomalies_chart %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Anomalias por Regressão Linear</h6>
+                            </div>
+                            <div class="card-body">
+                                {{ regression_anomalies_chart|safe }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if anomalies_stats %}
+                <div class="row mt-3" id="anomalies-section">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Anomalias Detectadas</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Data</th>
+                                                <th>Imóvel</th>
+                                                <th>Consumo (m³)</th>
+                                                <th>Valor (R$)</th>
+                                                <th>Tipo de Anomalia</th>
+                                                <th>Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for anomaly in anomalies_stats %}
+                                            <tr>
+                                                <td>{{ anomaly.date }}</td>
+                                                <td>{{ anomaly.property }}</td>
+                                                <td>{{ anomaly.consumption }}</td>
+                                                <td>{{ anomaly.amount }}</td>
+                                                <td>
+                                                    {% if 'Isolation Forest' in anomaly.type %}
+                                                    <span class="badge bg-danger">Isolation Forest</span>
+                                                    {% endif %}
+                                                    {% if 'Regressão Linear' in anomaly.type %}
+                                                    <span class="badge bg-warning text-dark">Regressão Linear</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ anomaly.score }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if anomalies_stats %}
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-warning bg-opacity-10 d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Explicação das Anomalias</h5>
+                                <form action="{% url 'explain_anomalies_api' %}" method="get" style="margin: 0">
+                                    {% csrf_token %}
+                                    {% if request.GET.property_search %}
+                                        <input type="hidden" name="property_search" value="{{ request.GET.property_search }}">
+                                    {% endif %}
+                                    {% if request.GET.property %}
+                                        <input type="hidden" name="property" value="{{ request.GET.property }}">
+                                    {% endif %}
+                                    {% if request.GET.year %}
+                                        {% for year in request.GET.year %}
+                                            <input type="hidden" name="year" value="{{ year }}">
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if request.GET.month %}
+                                        <input type="hidden" name="month" value="{{ request.GET.month }}">
+                                    {% endif %}
+                                    <button type="submit" class="btn btn-ia">
+                                        <i class="fas fa-brain"></i> Explicar com IA
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert {% if request.session.anomalies_explanation %}alert-info{% else %}alert-secondary{% endif %}" id="anomalyText">
+                                    {% if request.session.anomalies_explanation %}
+                                        {{ request.session.anomalies_explanation|linebreaks }}
+                                    {% else %}
+                                        Clique no botão "Explicar com IA" para gerar uma explicação das anomalias detectadas.
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Recent Bills -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Contas Recentes</h5>
+                <a href="{% url 'bill_create' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> Nova Conta
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imóvel</th>
+                                <th>Data</th>
+                                <th>Consumo</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for bill in recent_bills %}
+                            <tr>
+                                <td>{{ bill.property.name }}</td>
+                                <td>{{ bill.bill_date }}</td>
+                                <td>{{ bill.consumption }} m³</td>
+                                <td>R$ {{ bill.amount }}</td>
+                                <td>
+                                    <span class="badge {% if bill.status == 'paid' %}bg-success{% elif bill.status == 'pending' %}bg-warning{% else %}bg-danger{% endif %}">
+                                        {{ bill.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{% url 'bill_update' bill.pk %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">Nenhuma conta registrada ainda.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $("#id_property_search").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "{% url 'search_properties' %}",
+                dataType: "json",
+                data: {
+                    term: request.term
+                },
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        minLength: 2,
+        select: function(event, ui) {
+            $(this).val(ui.item.value);
+            // Atualiza o campo de seleção de local se existir
+            if ($("#id_property").length) {
+                $("#id_property").val(ui.item.id);
+            }
+            // Submete o formulário
+            $(this).closest('form').submit();
+        }
+    }).autocomplete("instance")._renderItem = function(ul, item) {
+        return $("<li>")
+            .append("<div>" + item.label + "</div>")
+            .appendTo(ul);
+    };
+});
+
+// Função para obter cookies, necessária para o CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+{% endblock %}
