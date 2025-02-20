@@ -8,8 +8,9 @@ Sistema para monitorar contas de água da Caesb. Detecta anomalias de consumo us
 git clone https://github.com/roneiFonseca/CaesbControl.git
 cd CaesbControl
 python -m venv venv
-.\venv\Scripts\activate
-pip install -e .
+.\venv\Scripts\activate  # Windows
+source venv/bin/activate # Linux/Mac
+pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
