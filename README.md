@@ -5,8 +5,8 @@ Sistema para monitorar contas de água da Caesb. Detecta anomalias de consumo us
 
 **Início Rápido:**
 ```bash
-git clone https://github.com/roneiFonseca/CaesbControl.git
-cd CaesbControl
+git clone https://github.com/roneiFonseca/CaesbControl-Public.git
+cd CaesbControl-Public
 python -m venv venv
 .\venv\Scripts\activate  # Windows
 source venv/bin/activate # Linux/Mac
@@ -36,8 +36,8 @@ Acesse http://localhost:8000 (usuário: admin, senha: admin123)
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/roneiFonseca/CaesbControl.git
-cd CaesbControl
+git clone https://github.com/roneiFonseca/CaesbControl-Public.git
+cd CaesbControl-Public
 ```
 
 2. Crie e ative um ambiente virtual:
