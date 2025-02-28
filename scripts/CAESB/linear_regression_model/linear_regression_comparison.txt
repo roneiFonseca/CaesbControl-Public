@@ -1,0 +1,11 @@
+--- Comparação de Diferentes Graus Polinomiais para Regressão Linear ---
+
+ degree  r2_train  r2_test   rmse_train   rmse_test   mae_train    mae_test  anomaly_count  anomaly_percent  anomaly_threshold
+      1  0.237308 0.846011 28823.668837 6487.002505 2332.481896 2153.404054             49         1.532687       19452.673258
+      2  0.238148 0.844085 28807.800133 6527.438560 2305.137930 2121.979564             45         1.407570       19570.244251
+      3  0.238181 0.844213 28807.176629 6524.765843 2337.797898 2151.654627             44         1.376290       19562.338236
+
+Melhor grau polinomial para cada métrica:
+R² (Teste): grau = 1 (0.8460)
+RMSE (Teste): grau = 1 (6487.0025)
+MAE (Teste): grau = 2 (2121.9796)

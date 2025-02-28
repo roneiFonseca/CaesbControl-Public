@@ -1,0 +1,41 @@
+--- Avaliação do Modelo Isolation Forest ---
+
+Número total de amostras: 15982
+Número de features: 2
+Porcentagem de anomalias: 23.78%
+
+Métricas no conjunto de TESTE:
+Acurácia: 0.6634
+Precisão: 0.3020
+Recall: 0.3171
+F1-Score: 0.3094
+
+Matriz de Confusão (Teste):
+[[1880  557]
+ [ 519  241]]
+
+Relatório de Classificação (Teste):
+              precision    recall  f1-score   support
+
+           0       0.78      0.77      0.78      2437
+           1       0.30      0.32      0.31       760
+
+    accuracy                           0.66      3197
+   macro avg       0.54      0.54      0.54      3197
+weighted avg       0.67      0.66      0.67      3197
+
+
+Correlação entre features e anomalias previstas:
+anomalia_prevista    1.000000
+m3                   0.503072
+R$                   0.485402
+anomalia_real        0.087093
+Name: anomalia_prevista, dtype: float64
+
+Correlação entre features e anomalias reais:
+anomalia_real        1.000000
+m3                   0.094080
+R$                   0.087998
+anomalia_prevista    0.087093
+Name: anomalia_real, dtype: float64
+

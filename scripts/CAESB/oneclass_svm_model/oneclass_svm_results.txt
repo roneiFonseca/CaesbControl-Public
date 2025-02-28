@@ -1,0 +1,41 @@
+--- Avaliação do Modelo One-Class SVM ---
+
+Número total de amostras: 15982
+Número de features: 2
+Porcentagem de anomalias: 23.78%
+
+Métricas no conjunto de TESTE:
+Acurácia: 0.7645
+Precisão: 0.5614
+Recall: 0.0421
+F1-Score: 0.0783
+
+Matriz de Confusão (Teste):
+[[2412   25]
+ [ 728   32]]
+
+Relatório de Classificação (Teste):
+              precision    recall  f1-score   support
+
+           0       0.77      0.99      0.86      2437
+           1       0.56      0.04      0.08       760
+
+    accuracy                           0.76      3197
+   macro avg       0.66      0.52      0.47      3197
+weighted avg       0.72      0.76      0.68      3197
+
+
+Correlação entre features e anomalias previstas:
+anomalia_prevista    1.000000
+R$                   0.681711
+m3                   0.678365
+anomalia_real        0.102447
+Name: anomalia_prevista, dtype: float64
+
+Correlação entre features e anomalias reais:
+anomalia_real        1.000000
+anomalia_prevista    0.102447
+m3                   0.094080
+R$                   0.087998
+Name: anomalia_real, dtype: float64
+

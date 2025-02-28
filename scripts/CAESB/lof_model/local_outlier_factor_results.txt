@@ -1,0 +1,53 @@
+--- Avaliação do Modelo Local Outlier Factor ---
+
+Número total de amostras: 15982
+Número de features: 158
+Porcentagem de anomalias: 23.78%
+
+Métricas no conjunto de TESTE:
+Acurácia: 0.7563
+Precisão: 0.4275
+Recall: 0.0737
+F1-Score: 0.1257
+
+Matriz de Confusão (Teste):
+[[2362   75]
+ [ 704   56]]
+
+Relatório de Classificação (Teste):
+              precision    recall  f1-score   support
+
+           0       0.77      0.97      0.86      2437
+           1       0.43      0.07      0.13       760
+
+    accuracy                           0.76      3197
+   macro avg       0.60      0.52      0.49      3197
+weighted avg       0.69      0.76      0.68      3197
+
+
+Correlação entre features e anomalias previstas:
+anomalia_prevista                                                            1.000000
+LOCAL_CASA DE ESTUDANTE – PLANALTINA VNSF CJ B3 LT19                         0.193739
+LOCAL_CESPE SCLN 406 BL A SS  24                                             0.121040
+LOCAL_UNB SISMOLÓGICO 02 SIS LIGAÇÃO 2                                       0.120776
+LOCAL_FUNDAÇÃO UNIVERSIDADE DE BRASÍLIA SCLN 406 BL A SS 72                  0.105775
+LOCAL_UNIVERSIDADE DE BRASÍLIA UNB FUBRA                                     0.099114
+anomalia_real                                                                0.092142
+LOCAL_CESPE SCLN 406 BL A SS  04                                             0.085575
+LOCAL_CESPE CENTRO DE SELEÇÃO E  PROMOÇÃO DE EVENTOS SCLN 406 BL A SS  14    0.085575
+LOCAL_FUNDAÇÃO UNIVERSIDADE DE BRASÍLIA  SQN 214 BL G AP 406                 0.085575
+Name: anomalia_prevista, dtype: float64
+
+Correlação entre features e anomalias reais:
+anomalia_real                                   1.000000
+m3                                              0.094080
+anomalia_prevista                               0.092142
+R$                                              0.087998
+LOCAL_UNB - POSTO DE SAÚDE                      0.039406
+LOCAL_UNB CASA DO PROFº 2 ADUNB LIG. 2          0.037819
+LOCAL_UNIVERSIDADE DE BRASÍLIA SGAN 605 LT H    0.036722
+LOCAL_FACULDADE DE TECNOLOGIA FTD LIG 1         0.035575
+LOCAL_LAB FAC TEC                               0.034513
+LOCAL_UNB CANTINA CHICO MENDES                  0.034513
+Name: anomalia_real, dtype: float64
+
