@@ -1,0 +1,77 @@
+--- Comparação de Técnicas de Balanceamento para Random Forest ---
+
+Sem Balanceamento:
+  Acurácia: 0.7748
+  Precisão: 0.6124
+  Recall (Sensibilidade): 0.1434
+  Especificidade: 0.9717
+  Valor Preditivo Negativo: 0.7844
+  F1-Score: 0.2324
+  AUC-ROC: 0.7211
+  AUC-PR: 0.4479
+  Média CV (F1): 0.2083
+  Desvio Padrão CV (F1): 0.0161
+
+SMOTE:
+  Acurácia: 0.6922
+  Precisão: 0.3931
+  Recall (Sensibilidade): 0.5421
+  Especificidade: 0.7390
+  Valor Preditivo Negativo: 0.8381
+  F1-Score: 0.4558
+  AUC-ROC: 0.7086
+  AUC-PR: 0.4380
+  Média CV (F1): 0.7654
+  Desvio Padrão CV (F1): 0.0061
+
+ADASYN:
+  Acurácia: 0.6838
+  Precisão: 0.3902
+  Recall (Sensibilidade): 0.5868
+  Especificidade: 0.7140
+  Valor Preditivo Negativo: 0.8471
+  F1-Score: 0.4687
+  AUC-ROC: 0.7094
+  AUC-PR: 0.4285
+  Média CV (F1): 0.7517
+  Desvio Padrão CV (F1): 0.0050
+
+Random Under-Sampling:
+  Acurácia: 0.6347
+  Precisão: 0.3511
+  Recall (Sensibilidade): 0.6329
+  Especificidade: 0.6352
+  Valor Preditivo Negativo: 0.8473
+  F1-Score: 0.4516
+  AUC-ROC: 0.6892
+  AUC-PR: 0.4183
+  Média CV (F1): 0.6313
+  Desvio Padrão CV (F1): 0.0139
+
+SMOTE + ENN:
+  Acurácia: 0.6672
+  Precisão: 0.3707
+  Recall (Sensibilidade): 0.5737
+  Especificidade: 0.6963
+  Valor Preditivo Negativo: 0.8397
+  F1-Score: 0.4504
+  AUC-ROC: 0.6810
+  AUC-PR: 0.3925
+  Média CV (F1): 0.9110
+  Desvio Padrão CV (F1): 0.0043
+
+SMOTE + Tomek:
+  Acurácia: 0.6922
+  Precisão: 0.3913
+  Recall (Sensibilidade): 0.5303
+  Especificidade: 0.7427
+  Valor Preditivo Negativo: 0.8353
+  F1-Score: 0.4503
+  AUC-ROC: 0.7058
+  AUC-PR: 0.4235
+  Média CV (F1): 0.7909
+  Desvio Padrão CV (F1): 0.0067
+
+Melhor Técnica: ADASYN (F1-Score: 0.4687)
+
+Tempo de execução total: 201.90 segundos

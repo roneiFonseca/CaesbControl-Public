@@ -1,0 +1,16 @@
+--- Resultados do Modelo Random Forest ---
+
+Melhores parâmetros: {'class_weight': 'balanced', 'max_depth': None, 'min_samples_leaf': 2, 'min_samples_split': 10, 'n_estimators': 200}
+
+Acurácia: 0.6988
+Precisão: 0.3942
+Recall: 0.4974
+F1-Score: 0.4398
+AUC-ROC: 0.7163
+AUC-PR: 0.4505
+
+--- Matriz de Confusão ---
+Verdadeiros Negativos (TN): 1856
+Falsos Positivos (FP): 581
+Falsos Negativos (FN): 382
+Verdadeiros Positivos (TP): 378

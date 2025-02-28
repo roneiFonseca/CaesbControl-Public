@@ -1,0 +1,24 @@
+--- Resultados do Modelo Random Forest Otimizado ---
+
+Parâmetros utilizados: {'class_weight': 'balanced', 'max_depth': None, 'min_samples_leaf': 2, 'min_samples_split': 10, 'n_estimators': 200}
+
+Scores de validação cruzada (F1): ['0.4751', '0.4802', '0.4655', '0.4602', '0.4640']
+Média dos scores de validação cruzada (F1): 0.4690
+Desvio padrão dos scores de validação cruzada (F1): 0.0074
+
+Acurácia: 0.6988
+Precisão: 0.3942
+Recall (Sensibilidade): 0.4974
+Especificidade: 0.7616
+Valor Preditivo Negativo: 0.8293
+F1-Score: 0.4398
+AUC-ROC: 0.7163
+AUC-PR: 0.4505
+
+--- Matriz de Confusão ---
+Verdadeiros Negativos (TN): 1856
+Falsos Positivos (FP): 581
+Falsos Negativos (FN): 382
+Verdadeiros Positivos (TP): 378
+
+Tempo de execução: 27.65 segundos
